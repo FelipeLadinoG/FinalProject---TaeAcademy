@@ -10,6 +10,7 @@ public class Main {
             @Override
             public void run() {
                 Controller controller = new Controller();
+                controller.iniciar();
             }
         });
     }
