@@ -1,15 +1,21 @@
 package model;
 
-public class Student extends User{
+public class Student extends Person {
     private String studentId;
-    private String age;
 
     public Student() {
     }
 
-    public Student(String name, String email, String password, String studentId, String age) {
-        super(name, email, password);
+    public Student(String name, String age, String studentId) {
+        super(name, age);
         this.studentId = studentId;
-        this.age = age;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 }
