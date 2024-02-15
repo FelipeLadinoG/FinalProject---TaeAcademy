@@ -32,7 +32,6 @@ public class Controller {
 
     private Student student;
 
-
     private LoginPanel loginPanel;
     private CreateTeacherPanel createTeacherPanel;
     private CreateStudentPanel createStudentPanel;
@@ -45,58 +44,19 @@ public class Controller {
     private StudentInfoPanel studentInfoPanel;
     private HourlyTeachersPanel hourlyTeachersPanel;
     private HourlyTeacherInfoPanel hourlyTeacherInfoPanel;
-
     private CourseInfoPanel courseInfoPanel;
     private CoursesPanel coursesPanel;
 
+    private void initialize() {
+        initializeLists();
+        initializePanels();
+    }
+
+
+
 
     public Controller() {
-        student = new Student();
-
-
-        loginPanel = new LoginPanel();
-        createTeacherPanel = new CreateTeacherPanel();
-        createHourlyTeacherPanel = new CreateHourlyTeacherPanel();
-        createStudentPanel = new CreateStudentPanel();
-        dashboardPanel = new DashboardPanel();
-        teacherInfoPanel = new TeacherInfoPanel(new FullTimeTeacher());
-        hourlyTeacherInfoPanel = new HourlyTeacherInfoPanel(new HourlyTeacher());
-        studentInfoPanel = new StudentInfoPanel(new Student());
-        courseInfoPanel = new CourseInfoPanel(new Course());
-
-
-        fullTimeTeacherList = new ArrayList<>();
-        fullTimeTeacherList.add(new FullTimeTeacher("Alice Smith", "35", 0, "full-" + fullTimeTeacherList.size(), 35));
-        fullTimeTeacherList.add(new FullTimeTeacher("Bob Johnson", "40", 0, "full-" + fullTimeTeacherList.size(), 45));
-        fullTimeTeacherList.add(new FullTimeTeacher("Emily Brown", "38", 0, "full-" + fullTimeTeacherList.size(), 38));
-        fullTimeTeacherList.add(new FullTimeTeacher("David Wilson", "42", 0, "full-" + fullTimeTeacherList.size(), 42));
-        teachersPanel = new TeachersPanel(fullTimeTeacherList, this);
-
-        studentList = new ArrayList<>();
-        studentList.add(new Student("Alice", "001", "student-" + studentList.size()));
-        studentList.add(new Student("Bob", "002", "student-" + studentList.size()));
-        studentList.add(new Student("Charlie", "003", "student-" + studentList.size()));
-        studentList.add(new Student("David", "004", "student-" + studentList.size()));
-        studentList.add(new Student("Emma", "005", "student-" + studentList.size()));
-        studentsPanel = new StudentsPanel(studentList, this);
-
-        hourlyTeachersList = new ArrayList<>();
-        hourlyTeachersList.add(new HourlyTeacher("Alice Smith", "35", 0, "hourly-" + hourlyTeachersList.size(), 35));
-        hourlyTeachersList.add(new HourlyTeacher("Bob Johnson", "40", 0, "hourly-" + hourlyTeachersList.size(), 45));
-        hourlyTeachersList.add(new HourlyTeacher("Emily Brown", "38", 0, "hourly-" + hourlyTeachersList.size(), 38));
-        hourlyTeachersList.add(new HourlyTeacher("David Wilson", "42", 0, "hourly-" + hourlyTeachersList.size(), 42));
-        hourlyTeachersPanel = new HourlyTeachersPanel(hourlyTeachersList, this);
-
-        courseList = new ArrayList<>();
-        courseList.add(new Course("Maths", "1-101", hourlyTeachersList.get(0), studentList.subList(0, 2)));
-        courseList.add(new Course("Science", "1-102", hourlyTeachersList.get(1), studentList.subList(2, 4)));
-        coursesPanel = new CoursesPanel(courseList, this);
-
-
-        teacherList = new ArrayList<>();
-        teacherList.addAll(fullTimeTeacherList);
-        teacherList.addAll(hourlyTeachersList);
-        createCoursePanel = new CreateCoursePanel(teacherList,studentList);
+        initialize();
 
         loginPanel.setExitListener(new ActionListener() {
             @Override
@@ -112,7 +72,7 @@ public class Controller {
                 String user = loginPanel.getUserText();
                 String password = loginPanel.getPasswordText();
 
-                if (user.equals("Admin") && password.equals("admin")) {
+                if (user.equals("Admin") && password.equals("Admin")) {
                     JOptionPane.showMessageDialog(null, "Signed as AdminUser.", "Error", JOptionPane.INFORMATION_MESSAGE);
                     loginPanel.setVisible(false);
                     dashboardPanel.setCoursesTotal("Total: " + courseList.size());
@@ -459,6 +419,60 @@ public class Controller {
         });
     }
 
+
+    private void initializeLists() {
+        student = new Student();
+
+        fullTimeTeacherList = new ArrayList<>();
+        fullTimeTeacherList.add(new FullTimeTeacher("Omar Felipe", "35", 0, "full-" + fullTimeTeacherList.size(), 35));
+        fullTimeTeacherList.add(new FullTimeTeacher("Rodrigo Hernan", "40", 0, "full-" + fullTimeTeacherList.size(), 45));
+        fullTimeTeacherList.add(new FullTimeTeacher("Felipe Omar", "38", 0, "full-" + fullTimeTeacherList.size(), 38));
+        fullTimeTeacherList.add(new FullTimeTeacher("Ricardo Wilson", "42", 0, "full-" + fullTimeTeacherList.size(), 42));
+
+        studentList = new ArrayList<>();
+        studentList.add(new Student("Felipe", "26", "student-" + studentList.size()));
+        studentList.add(new Student("Juan", "25", "student-" + studentList.size()));
+        studentList.add(new Student("Miguel", "24", "student-" + studentList.size()));
+        studentList.add(new Student("David", "22", "student-" + studentList.size()));
+        studentList.add(new Student("Jose", "21", "student-" + studentList.size()));
+
+        hourlyTeachersList = new ArrayList<>();
+        hourlyTeachersList.add(new HourlyTeacher("Fernando Alonso", "35", 0, "hourly-" + hourlyTeachersList.size(), 35));
+        hourlyTeachersList.add(new HourlyTeacher("LeBron James", "40", 0, "hourly-" + hourlyTeachersList.size(), 45));
+        hourlyTeachersList.add(new HourlyTeacher("Richard Alberto", "38", 0, "hourly-" + hourlyTeachersList.size(), 38));
+        hourlyTeachersList.add(new HourlyTeacher("Rayo McQueen", "42", 0, "hourly-" + hourlyTeachersList.size(), 42));
+
+        courseList = new ArrayList<>();
+        courseList.add(new Course("Maths", "1-101", hourlyTeachersList.get(0), studentList.subList(0, 2)));
+        courseList.add(new Course("Science", "1-102", hourlyTeachersList.get(1), studentList.subList(0, 4)));
+        courseList.add(new Course("Astronomy", "1-102", hourlyTeachersList.get(1), studentList.subList(1, 3)));
+        courseList.add(new Course("Arts", "1-102", hourlyTeachersList.get(1), studentList.subList(2, 2)));
+
+
+        teacherList = new ArrayList<>();
+        teacherList.addAll(fullTimeTeacherList);
+        teacherList.addAll(hourlyTeachersList);
+    }
+
+    private void initializePanels() {
+        loginPanel = new LoginPanel();
+        createTeacherPanel = new CreateTeacherPanel();
+        createHourlyTeacherPanel = new CreateHourlyTeacherPanel();
+        createStudentPanel = new CreateStudentPanel();
+        dashboardPanel = new DashboardPanel();
+        teacherInfoPanel = new TeacherInfoPanel(new FullTimeTeacher());
+        hourlyTeacherInfoPanel = new HourlyTeacherInfoPanel(new HourlyTeacher());
+        studentInfoPanel = new StudentInfoPanel(new Student());
+        courseInfoPanel = new CourseInfoPanel(new Course());
+
+        teachersPanel = new TeachersPanel(fullTimeTeacherList, this);
+        studentsPanel = new StudentsPanel(studentList, this);
+        hourlyTeachersPanel = new HourlyTeachersPanel(hourlyTeachersList, this);
+        coursesPanel = new CoursesPanel(courseList, this);
+
+        createCoursePanel = new CreateCoursePanel(teacherList, studentList);
+    }
+
     public void showTeacherInfo(FullTimeTeacher fullTimeTeacher) {
 
         teacherInfoPanel.updateInfo(fullTimeTeacher);
@@ -498,14 +512,6 @@ public class Controller {
         loginPanel.showView();
     }
 
-
-    public static boolean validarEmail(String email) {
-
-        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-
-
-        return email.matches(regex);
-    }
 
     public String getCoursesByStudent(Student student) {
         List<Course> courses = new ArrayList<>();
